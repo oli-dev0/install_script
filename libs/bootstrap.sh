@@ -150,6 +150,16 @@ load_config() {
     source_optional_file "$SECRETS_FILE"
 }
 
+record_skipped_section() {
+    local section_title="$1"
+
+    increment_total
+    increment_skipped
+
+    echo -e "${YELLOW}${ICON_SKIP} Skipped $section_title${RESET}"
+    log_skipped "Section skipped: $section_title"
+}
+
 print_app_header() {
     echo -e "${BOLD}${CYAN}"
     echo "========================================"
@@ -182,9 +192,7 @@ run_section() {
     echo -e "${BOLD}${BLUE}Next section: $section_title${RESET}"
 
     if ! ask_yes_no "Do you want to start $section_title?" "y"; then
-        echo -e "${YELLOW}${ICON_SKIP} Skipped $section_title${RESET}"
-        log_skipped "Section skipped: $section_title"
-        increment_skipped
+        record_skipped_section "$section_title"
         return 0
     fi
 

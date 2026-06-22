@@ -98,7 +98,7 @@ print_summary() {
     echo -e "Total steps:        ${BOLD}$TOTAL_STEPS${RESET}"
     echo -e "Success:            ${GREEN}$SUCCESS_STEPS${RESET}"
     echo -e "Already done:       ${BLUE}$ALREADY_STEPS${RESET}"
-    echo -e "Skipped:            ${YELLOW}$SKIPPED_STEPS${RESET}"
+    echo -e "Skipped categories: ${YELLOW}$SKIPPED_STEPS${RESET}"
     echo -e "Failed:             ${RED}$FAILED_STEPS${RESET}"
     echo -e "Continued failures: ${YELLOW}$CONTINUED_FAILURES${RESET}"
 
@@ -112,7 +112,7 @@ print_summary() {
 
     echo
     echo "Backup folder:"
-    echo "$BACKUP_RUN_DIR"
+    echo -e "$BACKUP_RUN_DIR \n"
 
     log_info "Summary: total=$TOTAL_STEPS success=$SUCCESS_STEPS already=$ALREADY_STEPS skipped=$SKIPPED_STEPS failed=$FAILED_STEPS continued_failures=$CONTINUED_FAILURES dry_run=$DRY_RUN_STEPS"
 }

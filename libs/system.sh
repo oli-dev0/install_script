@@ -31,6 +31,23 @@ warn_if_not_linux_mint_cinnamon() {
     fi
 }
 
+required_commands() {
+    local cmd
+    local missing=false
+
+    for cmd in "$@"; do
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+            echo "Missing required command: $cmd" >&2
+            log_error "Missing required command: $cmd"
+            missing=true
+        fi
+    done
+
+    if [[ "$missing" == true ]]; then
+        exit 1
+    fi
+}
+
 request_sudo() {
     local sudo_password
 

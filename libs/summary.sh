@@ -116,3 +116,12 @@ print_summary() {
 
     log_info "Summary: total=$TOTAL_STEPS success=$SUCCESS_STEPS already=$ALREADY_STEPS skipped=$SKIPPED_STEPS failed=$FAILED_STEPS continued_failures=$CONTINUED_FAILURES dry_run=$DRY_RUN_STEPS"
 }
+
+exit_with_summary_status() {
+    if (( CONTINUED_FAILURES > 0 )); then
+        log_error "Install finished with continued failures"
+        exit 2
+    fi
+
+    exit 0
+}

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+required_commands xrandr gsettings dconf grep cmp mktemp
+
 DISPLAY_NIGHT_LIGHT_SOURCE="$ROOT_DIR/config/display/night-light.conf"
 DISPLAY_NIGHT_LIGHT_DCONF_PATH="/org/cinnamon/settings-daemon/plugins/color/"
 DISPLAY_MISC_SETTINGS_SOURCE="$ROOT_DIR/config/display/misc.sh"

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+required_commands gsettings dconf locale locale-gen timedatectl stat grep sudo mkdir chmod cmp diff install mktemp cp rm
+
 NEMO_DCONF_SOURCE="$ROOT_DIR/config/nemo/nemo-settings.conf"
 NEMO_DCONF_PATH="/org/nemo/"
 SYSTEM_MISC_SETTINGS_SOURCE="$ROOT_DIR/config/system/misc.sh"

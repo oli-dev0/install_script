@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+required_commands git grep touch
+
 GIT_IGNORE_GLOBAL_FILE="$HOME/.gitignore_global"
 
 git_identity_secrets_available() {
@@ -22,8 +24,16 @@ apply_git_identity_from_secrets() {
     git config --global user.email "$SECRET_GIT_USER_EMAIL"
 }
 
+git_default_branch_is_main() {
+    [[ "$(git config --global init.defaultBranch 2>/dev/null || true)" == "main" ]]
+}
+
+set_git_default_branch_main() {
+    git config --global init.defaultBranch main
+}
+
 GIT_CUSTOM_STEPS=(
-    "Set Git default branch to main|git config --global init.defaultBranch main|test \"\$(git config --global init.defaultBranch)\" = \"main\"|optional"
+    "Set Git default branch to main|set_git_default_branch_main|git_default_branch_is_main|optional"
 )
 
 GIT_CONDITIONAL_STEPS=(

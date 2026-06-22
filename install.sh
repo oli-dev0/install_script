@@ -7,12 +7,15 @@ set -uo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # shellcheck source=libs/bootstrap.sh
-source "$ROOT_DIR/libs/bootstrap.sh"
+source "$ROOT_DIR/libs/bootstrap.sh" || {
+    echo "Fatal: failed to load $ROOT_DIR/libs/bootstrap.sh" >&2
+    exit 1
+}
 
 main() {
     parse_args "$@"
     validate_only_section
-    init_directories
+    init_runtime_directories
     init_logging
     load_config
 
@@ -31,6 +34,7 @@ main() {
 
     print_summary
     log_info "Install finished"
+    exit_with_summary_status
 }
 
 main "$@"

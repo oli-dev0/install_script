@@ -44,6 +44,14 @@ settings_array_length() {
     printf '%s\n' "${#entries[@]}"
 }
 
+shell_quote() {
+    local value="$1"
+    local quoted
+
+    printf -v quoted '%q' "$value"
+    printf '%s\n' "$quoted"
+}
+
 gsettings_entry_is_applied() {
     local entry="$1"
     local schema key expected actual
@@ -336,11 +344,16 @@ run_restore_user_file_step() {
     local source_file="$2"
     local target_file="$3"
     local criticality="${4:-optional}"
+    local quoted_source_file
+    local quoted_target_file
+
+    quoted_source_file="$(shell_quote "$source_file")"
+    quoted_target_file="$(shell_quote "$target_file")"
 
     run_step \
         "$title" \
-        "restore_user_file \"$source_file\" \"$target_file\"" \
-        "user_file_is_restored \"$source_file\" \"$target_file\"" \
+        "restore_user_file $quoted_source_file $quoted_target_file" \
+        "user_file_is_restored $quoted_source_file $quoted_target_file" \
         "$criticality"
 }
 
@@ -364,11 +377,16 @@ run_restore_user_directory_step() {
     local source_dir="$2"
     local target_dir="$3"
     local criticality="${4:-optional}"
+    local quoted_source_dir
+    local quoted_target_dir
+
+    quoted_source_dir="$(shell_quote "$source_dir")"
+    quoted_target_dir="$(shell_quote "$target_dir")"
 
     run_step \
         "$title" \
-        "restore_user_directory \"$source_dir\" \"$target_dir\"" \
-        "user_directory_is_restored \"$source_dir\" \"$target_dir\"" \
+        "restore_user_directory $quoted_source_dir $quoted_target_dir" \
+        "user_directory_is_restored $quoted_source_dir $quoted_target_dir" \
         "$criticality"
 }
 
@@ -406,11 +424,18 @@ run_restore_user_file_with_mode_step() {
     local target_file="$3"
     local file_mode="$4"
     local criticality="${5:-optional}"
+    local quoted_source_file
+    local quoted_target_file
+    local quoted_file_mode
+
+    quoted_source_file="$(shell_quote "$source_file")"
+    quoted_target_file="$(shell_quote "$target_file")"
+    quoted_file_mode="$(shell_quote "$file_mode")"
 
     run_step \
         "$title" \
-        "restore_user_file_with_mode \"$source_file\" \"$target_file\" \"$file_mode\"" \
-        "user_file_with_mode_is_restored \"$source_file\" \"$target_file\" \"$file_mode\"" \
+        "restore_user_file_with_mode $quoted_source_file $quoted_target_file $quoted_file_mode" \
+        "user_file_with_mode_is_restored $quoted_source_file $quoted_target_file $quoted_file_mode" \
         "$criticality"
 }
 
@@ -438,11 +463,16 @@ run_restore_sudo_file_step() {
     local source_file="$2"
     local target_file="$3"
     local criticality="${4:-optional}"
+    local quoted_source_file
+    local quoted_target_file
+
+    quoted_source_file="$(shell_quote "$source_file")"
+    quoted_target_file="$(shell_quote "$target_file")"
 
     run_step \
         "$title" \
-        "restore_sudo_file \"$source_file\" \"$target_file\"" \
-        "sudo_file_is_restored \"$source_file\" \"$target_file\"" \
+        "restore_sudo_file $quoted_source_file $quoted_target_file" \
+        "sudo_file_is_restored $quoted_source_file $quoted_target_file" \
         "$criticality"
 }
 
@@ -466,11 +496,18 @@ run_restore_sudo_file_with_mode_step() {
     local target_file="$3"
     local file_mode="$4"
     local criticality="${5:-optional}"
+    local quoted_source_file
+    local quoted_target_file
+    local quoted_file_mode
+
+    quoted_source_file="$(shell_quote "$source_file")"
+    quoted_target_file="$(shell_quote "$target_file")"
+    quoted_file_mode="$(shell_quote "$file_mode")"
 
     run_step \
         "$title" \
-        "restore_sudo_file_with_mode \"$source_file\" \"$target_file\" \"$file_mode\"" \
-        "sudo_file_with_mode_is_restored \"$source_file\" \"$target_file\" \"$file_mode\"" \
+        "restore_sudo_file_with_mode $quoted_source_file $quoted_target_file $quoted_file_mode" \
+        "sudo_file_with_mode_is_restored $quoted_source_file $quoted_target_file $quoted_file_mode" \
         "$criticality"
 }
 
@@ -498,11 +535,16 @@ run_restore_dconf_step() {
     local source_file="$2"
     local dconf_path="$3"
     local criticality="${4:-optional}"
+    local quoted_source_file
+    local quoted_dconf_path
+
+    quoted_source_file="$(shell_quote "$source_file")"
+    quoted_dconf_path="$(shell_quote "$dconf_path")"
 
     run_step \
         "$title" \
-        "restore_dconf_file \"$source_file\" \"$dconf_path\"" \
-        "dconf_file_is_restored \"$source_file\" \"$dconf_path\"" \
+        "restore_dconf_file $quoted_source_file $quoted_dconf_path" \
+        "dconf_file_is_restored $quoted_source_file $quoted_dconf_path" \
         "$criticality"
 }
 
@@ -525,11 +567,16 @@ run_gsettings_group_step() {
     local settings_file="$2"
     local array_name="$3"
     local criticality="${4:-optional}"
+    local quoted_settings_file
+    local quoted_array_name
+
+    quoted_settings_file="$(shell_quote "$settings_file")"
+    quoted_array_name="$(shell_quote "$array_name")"
 
     run_step \
         "$title" \
-        "apply_gsettings_entries \"$settings_file\" \"$array_name\"" \
-        "gsettings_entries_are_applied \"$settings_file\" \"$array_name\"" \
+        "apply_gsettings_entries $quoted_settings_file $quoted_array_name" \
+        "gsettings_entries_are_applied $quoted_settings_file $quoted_array_name" \
         "$criticality"
 }
 

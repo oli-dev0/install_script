@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+required_commands nmcli grep
+
 NETWORK_DNS_SETTINGS_SOURCE="$ROOT_DIR/config/network/dns.sh"
 
 NETWORK_CONDITIONAL_STEPS=(
@@ -18,7 +20,12 @@ NETWORK_SECTION_TOTAL=$(( \
 
 section_start "Network Settings" "$NETWORK_SECTION_TOTAL"
 
-# shellcheck source=config/network/dns.sh
+if [[ ! -f "$NETWORK_DNS_SETTINGS_SOURCE" ]]; then
+    echo "Missing source file: $NETWORK_DNS_SETTINGS_SOURCE"
+    exit 1
+fi
+
+# shellcheck source=/dev/null
 source "$NETWORK_DNS_SETTINGS_SOURCE"
 
 network_wifi_secrets_available() {

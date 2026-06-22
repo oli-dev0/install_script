@@ -2,20 +2,35 @@
 
 ROOT_DIR="${ROOT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)}"
 
-# shellcheck source=libs/styles.sh
-source "$ROOT_DIR/libs/styles.sh"
-# shellcheck source=libs/logging.sh
-source "$ROOT_DIR/libs/logging.sh"
-# shellcheck source=libs/prompts.sh
-source "$ROOT_DIR/libs/prompts.sh"
-# shellcheck source=libs/system.sh
-source "$ROOT_DIR/libs/system.sh"
-# shellcheck source=libs/settings.sh
-source "$ROOT_DIR/libs/settings.sh"
-# shellcheck source=libs/summary.sh
-source "$ROOT_DIR/libs/summary.sh"
-# shellcheck source=libs/steps.sh
-source "$ROOT_DIR/libs/steps.sh"
+source_required_file() {
+    local file_path="$1"
+    local label="${2:-required file}"
+
+    if [[ ! -f "$file_path" ]]; then
+        echo "Missing $label: $file_path" >&2
+        exit 1
+    fi
+
+    # shellcheck source=/dev/null
+    source "$file_path"
+}
+
+source_optional_file() {
+    local file_path="$1"
+
+    if [[ -f "$file_path" ]]; then
+        # shellcheck source=/dev/null
+        source "$file_path"
+    fi
+}
+
+source_required_file "$ROOT_DIR/libs/styles.sh" "core library"
+source_required_file "$ROOT_DIR/libs/logging.sh" "core library"
+source_required_file "$ROOT_DIR/libs/prompts.sh" "core library"
+source_required_file "$ROOT_DIR/libs/system.sh" "core library"
+source_required_file "$ROOT_DIR/libs/settings.sh" "core library"
+source_required_file "$ROOT_DIR/libs/summary.sh" "core library"
+source_required_file "$ROOT_DIR/libs/steps.sh" "core library"
 
 DRY_RUN=false
 YES_MODE=false
@@ -120,10 +135,7 @@ validate_only_section() {
     exit 1
 }
 
-init_directories() {
-    mkdir -p "$ROOT_DIR/config"
-    mkdir -p "$ROOT_DIR/libs"
-    mkdir -p "$ROOT_DIR/modules"
+init_runtime_directories() {
     mkdir -p "$ROOT_DIR/logs"
     mkdir -p "$ROOT_DIR/backups"
 }
@@ -134,13 +146,8 @@ load_config() {
         exit 1
     fi
 
-    # shellcheck source=config/config.sh
-    source "$CONFIG_FILE"
-
-    if [[ -f "$SECRETS_FILE" ]]; then
-        # shellcheck source=/dev/null
-        source "$SECRETS_FILE"
-    fi
+    source_required_file "$CONFIG_FILE" "config file"
+    source_optional_file "$SECRETS_FILE"
 }
 
 print_app_header() {
@@ -187,8 +194,7 @@ run_section() {
         exit 1
     fi
 
-    # shellcheck source=/dev/null
-    source "$module_path"
+    source_required_file "$module_path" "section module"
 }
 
 run_all_sections() {

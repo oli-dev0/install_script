@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+required_commands mkdir install stat cmp
+
 TERMINAL_SECRET_SSH_CONFIG_SOURCE="$ROOT_DIR/config/secrets/ssh/config"
 TERMINAL_SECRET_SSH_PRIVATE_KEY_SOURCE="$ROOT_DIR/config/secrets/ssh/id_ed25519"
 TERMINAL_SECRET_SSH_PUBLIC_KEY_SOURCE="$ROOT_DIR/config/secrets/ssh/id_ed25519.pub"
 
+projects_directory_exists() {
+    [[ -d "$PROJECTS_DIR" ]]
+}
+
+create_projects_directory() {
+    mkdir -p "$PROJECTS_DIR"
+}
+
 TERMINAL_CUSTOM_STEPS=(
-    "Create projects directory|mkdir -p \"$PROJECTS_DIR\"|test -d \"$PROJECTS_DIR\"|optional"
+    "Create projects directory|create_projects_directory|projects_directory_exists|optional"
 )
 
 TERMINAL_OPTIONAL_USER_FILE_WITH_MODE_STEPS=(

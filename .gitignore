@@ -1,3 +1,7 @@
+# Private
+backups/*
+logs/*
+
 # Editors
 .vscode/
 .idea/
@@ -12,8 +16,12 @@
 *.temp
 
 # Logs
-*.log	
+*.log
 
 # OS files
 .DS_Store
 Thumbs.db
+
+config/secrets.sh
+config/secrets/
+!config/secrets.example/

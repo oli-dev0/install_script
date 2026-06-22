@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+
+TERMINAL_SECRET_SSH_CONFIG_SOURCE="$ROOT_DIR/config/secrets/ssh/config"
+TERMINAL_SECRET_SSH_PRIVATE_KEY_SOURCE="$ROOT_DIR/config/secrets/ssh/id_ed25519"
+TERMINAL_SECRET_SSH_PUBLIC_KEY_SOURCE="$ROOT_DIR/config/secrets/ssh/id_ed25519.pub"
+
+TERMINAL_CUSTOM_STEPS=(
+    "Create projects directory|mkdir -p \"$PROJECTS_DIR\"|test -d \"$PROJECTS_DIR\"|optional"
+)
+
+TERMINAL_OPTIONAL_USER_FILE_WITH_MODE_STEPS=(
+    "Restore SSH config|$TERMINAL_SECRET_SSH_CONFIG_SOURCE|$HOME/.ssh/config|600|optional"
+    "Restore SSH private key|$TERMINAL_SECRET_SSH_PRIVATE_KEY_SOURCE|$HOME/.ssh/id_ed25519|600|optional"
+    "Restore SSH public key|$TERMINAL_SECRET_SSH_PUBLIC_KEY_SOURCE|$HOME/.ssh/id_ed25519.pub|644|optional"
+)
+
+TERMINAL_SECTION_TOTAL=$(( \
+    $(declared_array_length "TERMINAL_CUSTOM_STEPS") + \
+    $(declared_array_length "TERMINAL_OPTIONAL_USER_FILE_WITH_MODE_STEPS") \
+))
+
+section_start "Terminal Settings" "$TERMINAL_SECTION_TOTAL"
+
+run_custom_steps_from_entries "TERMINAL_CUSTOM_STEPS"
+run_optional_restore_user_file_with_mode_steps_from_entries "TERMINAL_OPTIONAL_USER_FILE_WITH_MODE_STEPS"
+
+section_end "Terminal Settings"

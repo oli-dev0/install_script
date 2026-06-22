@@ -1,0 +1,13 @@
+- add wireguard .conf file in /etc/wireguard/
+- check telegram snap or flatpak install
+- connect mailspring accounts
+- setup all Chrome profiles (work and oli)
+- setup pinned apps on panel
+- verify timeshift drive
+- setup firewall manually:
+  - enable UFW
+  - logging on low
+  - default incoming deny
+  - default outgoing allow
+  - default routed disabled
+  - no custom rules

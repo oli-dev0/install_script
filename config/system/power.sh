@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+
+SYSTEM_POWER_GSETTINGS=(
+    "org.cinnamon.settings-daemon.plugins.power|button-hibernate|'hibernate'"
+    "org.cinnamon.settings-daemon.plugins.power|button-power|'interactive'"
+    "org.cinnamon.settings-daemon.plugins.power|button-suspend|'suspend'"
+    "org.cinnamon.settings-daemon.plugins.power|critical-battery-action|'hibernate'"
+    "org.cinnamon.settings-daemon.plugins.power|idle-brightness|30"
+    "org.cinnamon.settings-daemon.plugins.power|idle-dim-ac|false"
+    "org.cinnamon.settings-daemon.plugins.power|idle-dim-battery|true"
+    "org.cinnamon.settings-daemon.plugins.power|idle-dim-time|90"
+    "org.cinnamon.settings-daemon.plugins.power|inhibit-lid-switch|true"
+    "org.cinnamon.settings-daemon.plugins.power|lid-close-ac-action|'suspend'"
+    "org.cinnamon.settings-daemon.plugins.power|lid-close-battery-action|'suspend'"
+    "org.cinnamon.settings-daemon.plugins.power|lid-close-suspend-with-external-monitor|false"
+    "org.cinnamon.settings-daemon.plugins.power|lock-on-suspend|false"
+    "org.cinnamon.settings-daemon.plugins.power|minimum-display-brightness|uint32 2"
+    "org.cinnamon.settings-daemon.plugins.power|percentage-action|3"
+    "org.cinnamon.settings-daemon.plugins.power|percentage-critical|4"
+    "org.cinnamon.settings-daemon.plugins.power|percentage-low|10"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-display-ac|0"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-display-battery|300"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-inactive-ac-timeout|0"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-inactive-ac-type|'suspend'"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-inactive-battery-timeout|600"
+    "org.cinnamon.settings-daemon.plugins.power|sleep-inactive-battery-type|'suspend'"
+    "org.cinnamon.settings-daemon.plugins.power|time-action|240"
+    "org.cinnamon.settings-daemon.plugins.power|time-critical|420"
+    "org.cinnamon.settings-daemon.plugins.power|time-low|1200"
+    "org.cinnamon.settings-daemon.plugins.power|use-time-for-policy|false"
+)

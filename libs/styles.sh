@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+
+RESET="\033[0m"
+BOLD="\033[1m"
+
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+CYAN="\033[36m"
+
+ICON_RUN=">"
+ICON_SUCCESS="OK"
+ICON_ERROR="ERROR"
+ICON_SKIP="SKIP"
+ICON_WARN="WARN"
+ICON_ALREADY="DONE"

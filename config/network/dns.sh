@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+
+NETWORK_DNS_IPV4="1.1.1.1,1.0.0.1"
+NETWORK_DNS_IPV6="2606:4700:4700::1111,2606:4700:4700::1001"

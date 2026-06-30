@@ -15,6 +15,7 @@ APT_APPS=(
     "curl"
     "wget"
     "jq"
+    "ghostty"
     "htop"
     "tree"
     "unrar"

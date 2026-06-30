@@ -1,6 +1,10 @@
 - add wireguard .conf file in /etc/wireguard/
+  - sudo chmod 600 /etc/wireguard/auth.conf
+  - sudo chown root:root /etc/wireguard/auth.conf
+  - ls -l /etc/wireguard/auth.conf
+    - -rw------- 1 root root ... /etc/wireguard/auth.conf
 - check telegram snap or flatpak install
-- connect mailspring accounts
+- connect outlook to mailspring
 - setup all Chrome profiles (work and oli)
 - setup pinned apps on panel
 - verify timeshift drive
